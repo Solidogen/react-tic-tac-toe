@@ -10,21 +10,25 @@ function Square(props) {
         >
             {props.value}
         </button>
-    );
+    )
 }
 
 class Board extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
-            squares: Array(9).fill(null)
+            squares: Array(9).fill(null),
+            xIsNext: true
         }
     }
 
     handleSquareClicked(i) {
-        const squares = this.state.squares.slice();
-        squares[i] = 'X';
-        this.setState({ squares: squares });
+        const squares = this.state.squares.slice()
+        squares[i] = this.state.xIsNext ? 'X' : 'O'
+        this.setState({
+            squares: squares,
+            xIsNext: !this.state.xIsNext
+        })
     }
 
     renderSquare(i) {
@@ -32,11 +36,11 @@ class Board extends React.Component {
             // square props
             value={this.state.squares[i]}
             onSquareClicked={() => this.handleSquareClicked(i)}
-        />;
+        />
     }
 
     render() {
-        const status = 'Next player: X';
+        const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
 
         return (
             <div>
@@ -63,7 +67,7 @@ class Board extends React.Component {
                     Button
                 </button>
             </div>
-        );
+        )
     }
 }
 
@@ -79,7 +83,7 @@ class Game extends React.Component {
                     <ol>{/* TODO */}</ol>
                 </div>
             </div>
-        );
+        )
     }
 }
 
@@ -88,4 +92,4 @@ class Game extends React.Component {
 ReactDOM.render(
     <Game />,
     document.getElementById('root')
-);
+)
